@@ -1,8 +1,8 @@
 import os
-from pathlib import Path
 import platform
 import shutil
 import subprocess
+from pathlib import Path
 
 from django.conf import settings
 from django.core.management.base import BaseCommand, CommandError
@@ -63,8 +63,7 @@ class Command(BaseCommand):
         script = Path(settings.BASE_DIR) / "scripts/start-issue/start-issue.sh"
         if not script.is_file():
             raise CommandError(
-                "File not found: %s. Restore the script in the project directory."
-                % script
+                f"File not found: {script}. Restore the script in the project directory."
             )
 
         try:
@@ -75,11 +74,10 @@ class Command(BaseCommand):
             )
         except OSError as exc:
             raise CommandError(
-                "Could not launch Bash. %s Check access to the project directory. "
-                "Details: %s" % (bash_hint, exc)
+                f"Could not launch Bash. {bash_hint} Check access to the project directory. "
+                f"Details: {exc}"
             ) from exc
         except subprocess.CalledProcessError as exc:
             raise CommandError(
-                "The script exited with code %s. See the error details above."
-                % exc.returncode
+                f"The script exited with code {exc.returncode}. See the error details above."
             ) from exc

@@ -5,9 +5,7 @@ from pathlib import Path
 
 def main():
     if sys.prefix == sys.base_prefix:
-        print(
-            "Activate your project's venv before running this script.", file=sys.stderr
-        )
+        print("Activate your project's venv before running this script.", file=sys.stderr)
         return 1
 
     requirements_path = Path(__file__).resolve().parents[2] / "requirements.txt"
@@ -40,14 +38,10 @@ def main():
         key=str.casefold,
     )
     if not packages:
-        print(
-            "No packages found; requirements.txt was left unchanged.", file=sys.stderr
-        )
+        print("No packages found; requirements.txt was left unchanged.", file=sys.stderr)
         return 1
 
-    requirements_path.write_text(
-        "\n".join(packages) + "\n", encoding="utf-8", newline="\n"
-    )
+    requirements_path.write_text("\n".join(packages) + "\n", encoding="utf-8", newline="\n")
     print(f"Updated {requirements_path} ({len(packages)} packages).")
     return 0
 
